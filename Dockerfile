@@ -1,5 +1,5 @@
 # syntax=docker/dockerfile:1.7
-FROM mcr.microsoft.com/playwright:v1.62.1-noble AS build
+FROM mcr.microsoft.com/playwright:v1.64.1-noble AS build
 
 WORKDIR /app
 RUN corepack enable && corepack prepare pnpm@11.19.0 --activate
@@ -13,7 +13,7 @@ COPY src ./src
 COPY tests ./tests
 RUN pnpm lint && pnpm typecheck && RUN_BROWSER_TESTS=true pnpm test && pnpm build && pnpm prune --prod
 
-FROM mcr.microsoft.com/playwright:v1.62.1-noble AS runtime
+FROM mcr.microsoft.com/playwright:v1.64.1-noble AS runtime
 
 ENV NODE_ENV=production \
     HOST=0.0.0.0 \
